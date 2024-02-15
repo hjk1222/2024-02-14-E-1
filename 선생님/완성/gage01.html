@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <script src="js/jquery-1.12.3.js"></script>
+    <!-- <script src="script/jquery-ui.min.js"></script> -->
+
+    <style type="text/css">
+        .gauge-container {
+            width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            border: 1px solid red;
+        }
+
+        .gauge{
+            width: 250px;
+            height: 250px;
+            display: inline-block;
+        }
+        
+        .gauge_box1{
+            margin: 100px auto;
+            border: 1px solid red;
+            width: 1200px;
+            padding: 100px 20px;
+        }
+
+        .progressbar{
+            width: 600px;
+            height: 30px;
+            border-radius: 15px;
+            background-color: #ccc;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+
+        }
+        .progress{
+            position: absolute;
+            top: 3px;
+            right: 5px;
+            z-index: 100;
+        }
+        .progress::after{
+            content: " %";
+        }
+
+        .progressbar1::after{
+            content: "";
+            position: absolute;
+            top: 0;left: 0;
+            background-color: blue;
+            width: 0px;
+            height: 30px;
+            animation: progress1 5s ease forwards;
+        }
+
+        @keyframes  progress1{
+            0%{width: 0;}
+            100%{width: 100%;}
+        }
+
+        .progressbar2::after{
+            content: "";
+            position: absolute;
+            top: 0;left: 0;
+            background-color: red;
+            width: 0px;
+            height: 30px;
+            animation: progress2 5s ease forwards;
+        }
+
+        @keyframes  progress2{
+            0%{width: 0;}
+            100%{width:25%;}
+        }
+
+        .progressbar3::after{
+            content: "";
+            position: absolute;
+            top: 0;left: 0;
+            background-color: green;
+            width: 0px;
+            height: 30px;
+            animation: progress3 5s ease forwards;
+        }
+
+        @keyframes  progress3{
+            0%{width: 0;}
+            100%{width:80%;}
+        }
+
+
+
+
+    </style>
+
+    <script lang="java">
+        document.addEventListener("DOMContentLoaded", function(e){
+            var deflt ={
+                min:0,
+                max : 100,
+                donut : true,
+                gaugeWidthScale : 0.5,
+                counter:true,
+                hideInnerShadow : true
+            }
+
+            var gg1 = new JustGage({
+                id : "gg1",
+                value : 100,
+                title : "JavaScript",
+                defaults : deflt,
+                gaugeColor:"blue",
+                levelColors:["hotpink"],
+                startAnimationTime :4000,
+            })
+
+            var gg2 = new JustGage({
+                id : "gg2",                
+                title : "HTML",
+                defaults : deflt,
+                gaugeColor:"green",
+                startAnimationTime :4000,
+            })
+            var gg3 = new JustGage({
+                id : "gg3",                
+                title : "CSS",
+                defaults : deflt,
+                gaugeColor:"yellow",
+                startAnimationTime :4000,
+            })
+
+            setInterval(function(){
+                gg1.refresh(getRandomInt(0, 100))
+                gg2.refresh(getRandomInt(0, 100))
+                gg3.refresh(getRandomInt(0, 100))
+            }, 4000)
+
+        })//
+    </script>
+
+   
+    <script lang="java">
+        $(function(){
+            $({val:0}).animate({val:100},{duration:5000, step :function(){
+                $(".progress1").text(  Math.floor(this.val)   );
+                
+            },
+            complete : function(){
+                $(".progress1").text(  Math.floor(this.val)   );
+                $(".progress1").css("color", "#fff")
+            }
+            })//$(".progress1")
+
+            $({val:0}).animate({val:25},{duration:5000, step :function(){
+                $(".progress2").text(  Math.floor(this.val)   );
+            },
+            complete : function(){
+                $(".progress2").text(  Math.floor(this.val)   );
+                $(".progress2").css("color", "#fff")
+            }
+            })//$(".progress2")
+
+            $({val:0}).animate({val:80},{duration:5000, step :function(){
+                $(".progress3").text(  Math.floor(this.val)   );
+            },
+            complete : function(){
+                $(".progress3").text(  Math.floor(this.val)   );
+                $(".progress3").css("color", "#fff")
+            }
+            })//$(".progress3")
+
+        })//jquery
+
+    </script>
+</head>
+
+<body>
+
+    <div class="gauge-container">
+        <div class="gauge" id="gg1" data-value="100"></div>
+        <div class="gauge" id="gg2" data-value="25"></div>
+        <div class="gauge" id="gg3" data-value="80"></div>
+
+    </div><!-- gauge-container -->
+
+    <div class="gauge_box1">
+
+        <div class="progressbar progressbar1">
+            <span class="progress progress1">0</span>
+        </div> 
+        <div class="progressbar progressbar2">
+            <span class="progress progress2">0</span>
+        </div> 
+        <div class="progressbar progressbar3">
+            <span class="progress progress3">0</span>
+        </div> 
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.4/raphael-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.2.2/justgage.js"></script>
+
+</body>
+
+</html>
